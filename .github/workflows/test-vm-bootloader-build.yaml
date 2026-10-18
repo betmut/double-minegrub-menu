@@ -18,5 +18,8 @@ jobs:
         run: nix flake check 
 
       - name: Build VM with bootloader derivation
-        # Targets your darwinConfigurations.<name>.system attribute
-        run: nix build .#nixosConfigurations.test-module.config.system.build.vmWithBootLoader
+        run: | 
+          nix build .#nixosConfigurations.test-module.config.system.build.vmWithBootLoader \
+            --extra-experimental-features "nix-command flakes" \
+            --print-build-logs \
+            --show-trace
